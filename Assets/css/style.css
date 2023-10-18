@@ -1,9 +1,13 @@
-main {
+.main-screen {
   text-align: center;
   position: relative;
 }
 
-#currentTime {
+.hide {
+  display: none;
+}
+
+#timer {
   position: absolute;
   top: 5px;
   right: 10px;
@@ -36,4 +40,29 @@ h2 {
   border-radius: 4px;
   display: block;
   margin: auto;
+}
+
+#quiz-questions {
+  color: black;
+}
+
+#choices {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  margin: auto;
+}
+
+#choices button {
+  background-color: rgb(73, 33, 216);
+  color:white;
+  padding: 5px;
+  margin: 3px;
+  border-radius: 6px;
+  text-align:left;
+  te}
+
+#choices button:hover {
+  background-color: rgb(218, 78, 218);
 }
