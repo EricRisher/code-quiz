@@ -6,6 +6,7 @@ const initialEl = document.querySelector("#initials");
 const feedbackEl = document.querySelector("#feedback");
 const choiceEl = document.querySelector("#choices");
 const correctStatusEl = document.querySelector("#correct");
+const quizEl = document.querySelector("#quiz-questions");
 
 const questions = [
   {
@@ -112,34 +113,40 @@ const questions = [
   },
 ];
 
+// Penalty for wrong answers and initial values for score, question index, and time
 const penalty = 10;
-
 let score = 0;
 let questionIndex = 0;
 let time = questions.length * 15;
 let timerId;
 let selectBtn;
 
+// Function to initialize the quiz
 function quizInit() {
+  // Hide the initial screen
   let mainEl = document.querySelector(".main-screen");
   mainEl.classList.add("hide");
 
+  // Start a timer to count down time and display the first question
   timerId = setInterval(tick, 1000);
   let questionsEl = document.querySelector("#quiz-questions");
   questionsEl.classList.remove("hide");
   displayQuestion();
 }
 
+// Function to display a question
 function displayQuestion() {
   questionsEl.textContent = questions[questionIndex].title;
   displayChoices();
 }
 
+// Function to display answer choices for the current question
 function displayChoices() {
   choiceEl.innerHTML = "";
 
   const question = questions[questionIndex];
 
+  // Create and display buttons for each answer choice
   question.choices.forEach((choice, index) => {
     const choiceBtn = document.createElement("button");
     choiceBtn.innerHTML = `${index + 1}. ${choice.text}`;
@@ -147,34 +154,37 @@ function displayChoices() {
     choiceBtn.classList.add("choices");
     choiceEl.appendChild(choiceBtn);
 
-    // Attach the click event listener for each choice button
-    choiceBtn.addEventListener("click", selectAnswer)
+    // Attach a click event listener to each choice button
+    choiceBtn.addEventListener("click", selectAnswer);
   });
 }
 
+// Function to handle the selection of an answer
 function selectAnswer(e) {
   let selectBtn = e.target;
-      questionIndex++;
-
-  console.log(questionIndex, 158)
-  const isCorrect = questions.includes(true);
+  const choiceIndex = selectBtn.dataset.index;
+  const isCorrect = questions[questionIndex].choices[choiceIndex].correct;
   setStatusClass(isCorrect);
+
   // Handle correct and incorrect answers
   if (isCorrect) {
     score += 1; // Increase score for correct answers
   } else {
     time -= penalty; // Deduct time for incorrect answers
   }
+  console.log(isCorrect, questionIndex)
+  questionIndex++;
+
+  // Move to the next question if there are more questions
   if (questionIndex < questions.length) {
     displayQuestion();
-  } else {
+  } else if (questionIndex === questions.length) {
+    // End the quiz if all questions have been answered
     quizEnd();
   }
-  console.log(isCorrect)
 }
 
-//let selectedChoice = questions[questionIndex].choices[selectBtn.dataset];
-
+// Function to set the class and text for the correct or wrong answer feedback
 function setStatusClass(isCorrect) {
   clearStatusClass();
   if (isCorrect) {
@@ -185,22 +195,43 @@ function setStatusClass(isCorrect) {
   correctStatusEl.classList.remove("hide");
 }
 
+// Function to clear the class and text for the answer feedback
 function clearStatusClass() {
   correctStatusEl.classList.add("hide");
   correctStatusEl.textContent = "";
 }
 
+// Function to update the timer and end the quiz if time runs out
 function tick() {
   time--;
   timerEl.textContent = `Time: ${time}`;
 
-  time <= 0 ? quizEnd() : null;
+  // End the quiz if time is up
+  if (time <= 0) {
+    quizEnd();
+  }
 }
 
+function endScreen() {
+  // Show the end screen
+  let endScreenEl = document.querySelector("#end-screen");
+  endScreenEl.classList.remove("hide");
+
+  // Display the final score
+  let finalScoreEl = document.querySelector("#final-score");
+  finalScoreEl.textContent = score;
+}
+
+// Function to handle the end of the quiz
 function quizEnd() {
+  // Stop the timer
   clearInterval(timerId);
-  // Handle the end of the quiz, display score, and other actions
-  
+  // Handle the end of the quiz, display the score, and perform other actions
+  console.log('Game over');
+  console.log(score);
+  quizEl.classList.add("hide");
+  endScreen();
 }
 
+// Attach the quizInit function to the start button's click event
 startBtn.addEventListener("click", quizInit);
