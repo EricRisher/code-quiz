@@ -44,9 +44,34 @@ h2 {
   margin-right: 30%;
 }
 
+.done {
+  display: block;
+  font-size: 25px;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
 h3 {
   font-size: 20px;
-  
+}
+
+#submitBtn {
+  cursor: pointer;
+  background-color: rgb(99, 1, 129);
+  color: white;
+  border-radius: 4px;
+  margin: auto;
+}
+
+label {
+  font-size: 20px;
+}
+
+#end-screen {
+  text-align: center;
 }
 
 #startBtn {
@@ -63,6 +88,36 @@ h3 {
   color: black;
 }
 
+.hsListEl {
+  text-align: center;
+  background-color: aliceblue;
+}
+
+#hsList {
+  padding:0;
+}
+
+#hsList li {
+  margin: 5px auto;
+  width: 30%;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: rgb(99, 1, 129);
+  color: white;
+  font-size: 30px;
+}
+
+.buttons button {
+  background-color: rgb(99, 1, 129);
+  color: white;
+  border-radius: 4px;
+  margin: auto;
+  font-size: 18px;
+  cursor: pointer;
+}
+
 #choices {
   list-style: none;
   display: block;
@@ -70,31 +125,29 @@ h3 {
   align-items: flex-start;
   width: fit-content;
   margin: auto;
-  
 }
-.choices {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; 
-  width: fit-content;
-  margin: auto;
-  padding: 5px;
-}
+
 .choices {
   background-color: rgb(99, 1, 129);
-  color:white;
+  color: white;
   margin: 2px 0;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1rem;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: fit-content;
+  margin: auto;
+  padding: 5px;
 }
 
 .choices:hover {
   background-color: rgba(98, 1, 128, 0.753);
 }
 
-#correct{
+#correct {
   align-items: flex-start;
   margin: auto;
   display: flex;
